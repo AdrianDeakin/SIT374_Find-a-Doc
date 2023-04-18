@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Map Demo</title>
+    <style>
+      body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      #menu {
+        background-color: #7b2cbf;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        color: #ffffff;
+      }
+      #menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      #menu ul li {
+        margin-right: 10px;
+      }
+      #menu ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px;
+      }
+      #menu ul li a:hover {
+        background-color: #ffffff;
+        color: #7b2cbf;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 50px);
+      }
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        color: #7b2cbf;
+      }
+      #map {
+        height: 400px;
+        width: 100%;
+        display: none;
+      }
+      .btn {
+        font-size: 2rem;
+        padding: 1rem 2rem;
+        background-color: #7b2cbf;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #ffffff;
+        color: #7b2cbf;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <div>(Gopher Industries Icon)</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="container">
+      <h1>Find a Doctor</h1>
+      <button class="btn" onclick="showMap()">Show Doctor on the Map</button>
+      <div id="map"></div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE"></script>
+    <script>
+      function initMap() {
+        const coords = [
+          {lat: -25.344, lng: 131.031},
+          {lat: -37.847849087307175, lng: 145.1116655138454}
+        ];
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 8,
+          center: coords[0],
+        });
+        for (let i = 0; i < coords.length; i++) {
+          const marker = new google.maps.Marker({
+            position: coords[i],
+            map: map,
+          });
+        }
+      }
+      function showMap() {
+        const mapDiv = document.getElementById("map");
+        mapDiv.style.display = "block";
+        const script = document.createElement('script');
+        script.src = "https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap";
+        script.defer = true;
+        document.body.appendChild(script);
+      }
+    </script>
+  </body>
+</html>
